@@ -11,40 +11,23 @@
  */
 class Solution {
 public:
-    bool isSymmetric(TreeNode* root) {
-        vector<TreeNode*>oldNodes;
-        
-        oldNodes.push_back(root);
-        while (true) {
-            vector<TreeNode*>newNodes;
-            bool allNull = true;
-            for (int i = 0; i < oldNodes.size(); i++) {
-                if (oldNodes[i] == NULL) {
-                    newNodes.push_back(NULL);
-                    newNodes.push_back(NULL);
-                }
-                else {
-                    newNodes.push_back(oldNodes[i]->left);
-                    newNodes.push_back(oldNodes[i]->right);
-                }
-            }
-
-            bool isPalindrome = true;
-            for (int i = 0; i < newNodes.size(); i++) {
-                if (newNodes[i] != NULL) allNull = false;
-                
-                if (newNodes[i] == NULL && newNodes[newNodes.size() - i - 1] == NULL) continue;
-                else if (newNodes[i] == NULL || newNodes[newNodes.size() - i - 1] == NULL) return false;
-                else if (newNodes[i]->val != newNodes[newNodes.size() - i - 1]->val) isPalindrome = false;
-            }
-
-            if (allNull) break;
-            if (!isPalindrome) {
-                return false;
-            }
-            
-            oldNodes.assign(newNodes.begin(), newNodes.end());
+    bool isMirrored(TreeNode* root1, TreeNode* root2) {
+        if (root1 == NULL && root2 == NULL) {
+            return true;
         }
-        return true;
+        
+        if (root1 == NULL || root2 == NULL) {
+            return false;
+        }
+        
+        if (root1->val != root2->val) {
+            return false;
+        }
+        
+        
+        return isMirrored(root1->left, root2->right) && isMirrored(root1->right, root2->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return isMirrored(root->left, root->right);
     }
 };
