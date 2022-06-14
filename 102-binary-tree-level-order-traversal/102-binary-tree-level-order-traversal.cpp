@@ -13,27 +13,21 @@ class Solution {
 public:
     vector<vector<int>> bfs (TreeNode* node) {
         vector<vector<int>> ans;
-        queue<pair<TreeNode*, int>>q;
+        queue<TreeNode*>q;
         if (node != NULL) {
-            q.push({node, 0});
+            q.push(node);
         }
-        vector<int>temp;
-        int last = 0;
         while(!q.empty()) {
-            TreeNode* current = q.front().first;
-            int level = q.front().second;
-            if (last != level) {
-                ans.push_back(temp);
-                temp.clear();
-            }
-
-            if (current != NULL) {
+            vector<int>temp;
+            int s = q.size();
+            while(s--) {
+                TreeNode* current = q.front();
+                q.pop();
                 temp.push_back(current->val);
-                q.push({current->left, level+1});
-                q.push({current->right, level+1});
+                if (current->left)q.push(current->left);
+                if (current->right)q.push(current->right);
             }
-            last = level;
-            q.pop();
+            ans.push_back(temp);
         }
         
         return ans;
