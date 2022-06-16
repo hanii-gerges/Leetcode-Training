@@ -11,17 +11,8 @@
  */
 class Solution {
 public:
-    int mx = 0;
-    void dfs(TreeNode* node, int depth) {
-        if(node == NULL) return;
-        mx = max(mx, depth);
-        if (node->left != NULL) dfs(node->left, depth+1);
-        if (node->right != NULL) dfs(node->right, depth+1);
-        
-    }
-
     int maxDepth(TreeNode* root) {
-        dfs(root, 1);
-        return mx;
+        if (!root) return 0;
+        return max(maxDepth(root->left), maxDepth(root->right)) + 1;
     }
 };
