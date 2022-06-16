@@ -15,8 +15,8 @@ public:
     void dfs(TreeNode* node, int depth) {
         if(node == NULL) return;
         mx = max(mx, depth);
-        dfs(node->left, depth+1);
-        dfs(node->right, depth+1);
+        if (node->left != NULL) dfs(node->left, depth+1);
+        if (node->right != NULL) dfs(node->right, depth+1);
         
     }
 
