@@ -12,22 +12,13 @@
 class Solution {
 public:
     map<int,bool>mp;
-    void getFreq(TreeNode* root) {
-        if (!root) return;
-        mp[root->val] = 1;
-        getFreq(root->left);
-        getFreq(root->right);
-    }
-    bool helper(TreeNode* root, int val) {
-        if (!root) return 0;
-        if (mp[val-root->val] && root->val != val - root->val)return 1;
-        bool searchLeft = helper(root->left, val);
-        bool searchRight = helper(root->right, val);
-        
-        return max(searchLeft, searchRight);
-    }
     bool findTarget(TreeNode* root, int k) {
-        getFreq(root);
-        return helper(root, k);
+        if (!root) return 0;
+        if (mp[k - root->val] && root->val != k - root->val) {
+            return true;
+        }
+        mp[root->val] = true;
+        
+        return max(findTarget(root->left, k), findTarget(root->right, k));
     }
 };
