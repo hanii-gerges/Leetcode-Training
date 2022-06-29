@@ -15,9 +15,17 @@ public:
       if (!root) {
         return 0;
       }
-      
-      int left = rangeSumBST(root->left, low, high);
-      int right = rangeSumBST(root->right, low, high);
+    
+      int left = 0, right = 0;
+
+      if (root->val > low) {
+        left = rangeSumBST(root->left, low, high);
+      }
+
+      if (root->val < high) {
+        right = rangeSumBST(root->right, low, high);
+      }
+
       int val = root->val >= low && root->val <= high ? root->val : 0;
       return left + right + val;
     }
