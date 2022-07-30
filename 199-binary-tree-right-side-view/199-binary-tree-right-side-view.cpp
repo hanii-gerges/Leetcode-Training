@@ -19,7 +19,6 @@ public:
       }
       while (!empty(q)) {
         int size = q.size();
-        vector<TreeNode*>temp;
         for (int i = 0; i < size; i++) {
           TreeNode* node = q.front();
           if (node->left) {
